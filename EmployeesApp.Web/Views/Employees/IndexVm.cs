@@ -11,9 +11,9 @@ public class IndexVM
 
         public required string Email { get; set; }
 
-        public required bool showAsHighlighted { get; set; }
+        public required bool ShowAsHighlighted { get; set; }
     }
 
 
-    public required IndexVM[] ListOfIndexVmItems { get; set; }
+    public required IndexVMItems[] ListOfIndexVmItems { get; set; }
 }

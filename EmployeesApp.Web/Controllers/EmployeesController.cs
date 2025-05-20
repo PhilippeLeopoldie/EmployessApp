@@ -1,6 +1,7 @@
 ﻿using EmployeesApp.Web.Models;
 using EmployeesApp.Web.Services;
 using EmployeesApp.Web.Views.Employees;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeesApp.Web.Controllers
@@ -13,19 +14,23 @@ namespace EmployeesApp.Web.Controllers
         public IActionResult Index()
         {
             var model = service.GetAll();
+      
+            var viewModel = new IndexVM
+            {
+                ListOfIndexVmItems = [..model.Select(e => new IndexVM.IndexVMItems
+                {
+                    Id = e.Id,
+                    Name = e.Name,
+                    ShowAsHighlighted = service.SetHighlight(e.Email),
+                    Email = e.Email,
 
-            //var viewModel = new IndexVm
-            //{
-            //    ListOfIndexItemVms = [.. model.Select(c => new IndexVm.IndexItemVm
-            //    {
-            //        
-            //    })]
-            //};
+                })]
+            };
 
             //foreach (var emp in model)
             //    Console.WriteLine($"{emp.Name}: {emp.Id}");
 
-            return View(model);
+            return View(viewModel);
         }
 
         [HttpGet("create")]
@@ -35,12 +40,19 @@ namespace EmployeesApp.Web.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult Create(Employee employee)
+        public IActionResult Create(CreateVM viewModel)
         {
             if (!ModelState.IsValid)
                 return View();
 
-            service.Add(employee);
+            var model = new Employee()
+            {
+                Name = viewModel.Name,
+                Email = viewModel.Email
+
+            };
+
+            service.Add(model);
             return RedirectToAction(nameof(Index));
         }
 

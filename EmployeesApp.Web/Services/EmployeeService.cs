@@ -10,7 +10,7 @@ namespace EmployeesApp.Web.Services
             {
                 Id = 562,
                 Name = "Anders Hejlsberg",
-                Email = "a.h@outlook.com",
+                Email = "admin.h@outlook.com",
             },
             new Employee()
             {
@@ -51,7 +51,7 @@ namespace EmployeesApp.Web.Services
         public Employee GetById(int id) => employees
             .Single(e => e.Id == id);
 
-        public bool setHighlight(string email) => email.StartsWith("admin", StringComparison.OrdinalIgnoreCase);
-        
+        public bool SetHighlight(string email) => email.StartsWith("admin", StringComparison.OrdinalIgnoreCase);
+
     }
 }
