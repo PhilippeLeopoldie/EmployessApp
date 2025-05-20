@@ -60,7 +60,13 @@ namespace EmployeesApp.Web.Controllers
         public IActionResult Details(int id)
         {
             var model = service.GetById(id);
-            return View(model);
+            var viewModel = new DetailsVM
+            {
+                Id = model.Id,
+                Email = model.Email,
+                Name = model.Name,
+            };
+            return View(viewModel);
         }
     }
 }
